@@ -1,59 +1,125 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Studify – Platform Kursus Daring
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Studify adalah aplikasi platform kursus daring yang dirancang untuk menyediakan layanan pembelajaran digital yang interaktif antara Admin, Teacher, Student, dan Public User (Guest). Sistem ini menyediakan modul lengkap untuk pengelolaan pengguna, course, konten pembelajaran, kategori, serta progress belajar. Antarmuka mencakup homepage, katalog course, halaman detail course, dashboard khusus per role, serta halaman materi (lesson) yang mendukung fitur “mark as done”.
 
-## About Laravel
+Aplikasi ini dibangun mengikuti standar Content Management System (CMS) dengan struktur yang mudah dikembangkan, aman, dan ramah pengguna.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Rincian Alur Aplikasi
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+#### 1. Login / Registrasi
 
-## Learning Laravel
+- Admin login menggunakan akun yang telah disediakan melalui seeder.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- Teacher dan Student dapat melakukan registrasi melalui halaman register.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Public User (Guest) dapat mengakses katalog course tanpa login.
 
-## Laravel Sponsors
+#### 2. Akses Dashboard Berdasarkan Role
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- Admin: Mengelola pengguna, kategori, course, dan seluruh aktivitas platform.
 
-### Premium Partners
+- Teacher: Membuat dan mengelola course serta kontennya, dan memantau progress student.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- Student: Mengikuti course, mengakses materi, melakukan penandaan selesai pada pelajaran, serta memantau progress belajar.
 
-## Contributing
+- Guest: Hanya dapat melihat katalog, course populer, dan detail course tanpa akses materi.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### 3. Manajemen Pengguna (Admin)
 
-## Code of Conduct
+- Menampilkan seluruh pengguna menggunakan pagination.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- Tambah pengguna baru (student atau teacher).
 
-## Security Vulnerabilities
+- Edit pengguna (username, email, password, role, status aktif/nonaktif).
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- Hapus pengguna yang tidak diperlukan.
 
-## License
+- Manajemen Course (Admin & Teacher)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Tambah, edit, dan hapus course sesuai peran.
+
+- Teacher hanya dapat mengelola course yang dia buat sendiri.
+
+- Admin memiliki akses penuh untuk mengelola semua course.
+
+- Course memiliki data: nama, deskripsi, rentang waktu, kategori, dan teacher pengajar.
+
+#### 4. Manajemen Konten Pembelajaran (Teacher)
+
+- Tambah materi baru dalam bentuk teks atau media.
+
+- Edit judul dan isi materi.
+
+- Hapus materi yang dibuat oleh teacher sendiri.
+
+- Semua materi ditampilkan berurutan dalam lesson page.
+
+#### 5. Manajemen Kategori (Admin)
+
+- Tambah, edit, hapus, dan menampilkan daftar kategori course.
+
+- Kategori digunakan untuk memfilter dan mengelompokkan course.
+
+--- 
+Langkah-Langkah Penggunaan
+
+#### 1. Clone Repositori:
+~~~
+git clone https://github.com/diestymendila/studify.git
+~~~
+
+#### 2. Masuk ke Direktori Proyek:
+~~~
+cd Studify
+~~~
+
+#### 3. Instal Dependensi Laravel:
+~~~
+composer install
+~~~
+
+#### 4. Salin atau Buat File .env:
+Jika hanya terdapat .env.example, ubah menjadi .env, lalu sesuaikan konfigurasi database:
+~~~
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=studify_db
+DB_USERNAME=root
+DB_PASSWORD=
+~~~
+
+#### 5. Buka XAMPP lalu jalankan MySQL.
+
+- Migrasi Database dan Jalankan Seeder:
+
+- php artisan migrate --seed
+
+
+#### 6. Jalankan Server Aplikasi:
+~~~
+php artisan serve
+~~~
+
+#### 7. Instal Dependensi NPM:
+~~~
+npm install
+~~~
+
+#### 8. Jalankan Vite:
+~~~
+npm run dev
+~~~
+~~~
+Generate App Key:
+~~~
+~~~
+php artisan key:generate
+~~~
+
+#### 9. Akses aplikasi melalui:
+~~~
+http://127.0.0.1:8000/
+~~~
