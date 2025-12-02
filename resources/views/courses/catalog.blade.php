@@ -1,13 +1,13 @@
 <x-app-layout>
     <div class="py-8 bg-gray-50 min-h-screen">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <!-- Header Section -->
+            
             <div class="mb-8">
                 <h1 class="text-4xl font-bold text-gray-900">Course Catalog</h1>
                 <p class="text-gray-600 mt-2">Discover and enroll in courses that interest you</p>
             </div>
 
-            <!-- Success/Error Messages -->
+            
             @if(session('success'))
                 <div class="mb-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
                     {{ session('success') }}
@@ -20,14 +20,14 @@
                 </div>
             @endif
 
-            <!-- Courses Grid -->
+            
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @forelse($courses as $course)
                     @php
-                        // Check if student is enrolled in this course
+                        
                         $isEnrolled = auth()->user() ? auth()->user()->enrolledCourses->contains($course->id) : false;
                         
-                        // Use helper method if user is enrolled
+                        
                         $progressData = ($isEnrolled && auth()->user()) 
                             ? auth()->user()->getCourseProgress($course)
                             : ['completed' => 0, 'total' => 0, 'percentage' => 0];
@@ -36,7 +36,7 @@
                         $completedCount = $progressData['completed'] ?? 0;
                         $totalCount = $progressData['total'] ?? 0;
 
-                        // first content/lesson (safe)
+                        
                         if($course->relationLoaded('contents')) {
                             $firstContent = $course->contents->sortBy('order')->first();
                         } else {
@@ -49,7 +49,7 @@
                     @endphp
 
                     <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col">
-                        <!-- Course Header with Status Badge -->
+                        
                         <div class="p-6 flex-grow">
                             <div class="flex items-start justify-between mb-3">
                                 <h3 class="font-bold text-xl text-gray-900 flex-grow pr-2">
@@ -66,12 +66,12 @@
                                 @endif
                             </div>
 
-                            <!-- Course Description -->
+                            
                             <p class="text-gray-600 text-sm mb-4 line-clamp-3">
                                 {{ Str::limit($course->description, 150) }}
                             </p>
 
-                            <!-- Teacher Info -->
+                            
                             <div class="flex items-center mb-3 pb-3 border-b border-gray-200">
                                 <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold">
                                     {{ strtoupper(substr($course->teacher->name ?? 'T', 0, 1)) }}
@@ -82,7 +82,7 @@
                                 </div>
                             </div>
 
-                            <!-- Category -->
+                            
                             <div class="flex items-center text-sm text-gray-500 mb-3">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
@@ -90,7 +90,7 @@
                                 <span>{{ $course->category->name ?? 'General' }}</span>
                             </div>
 
-                            <!-- Course Duration -->
+                            
                             <div class="flex items-center text-sm text-gray-500 mb-4">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
@@ -105,7 +105,7 @@
                                 </span>
                             </div>
 
-                            <!-- Progress Bar (Only for Enrolled Students) -->
+                            
                             @if($isEnrolled)
                                 <div class="mb-4 bg-gray-50 p-3 rounded-lg">
                                     <div class="flex justify-between items-center mb-2">
@@ -124,10 +124,10 @@
                             @endif
                         </div>
 
-                        <!-- Action Buttons - ONLY FOR STUDENTS -->
+                        
                         <div class="px-6 pb-6 space-y-2">
                             @if($isEnrolled)
-                                <!-- Continue Learning Button -->
+                                
                                 @if($firstContent)
                                     <a href="{{ route('lesson.show', ['course' => $course->id, 'content' => $firstContent->id]) }}" 
                                        class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-md font-medium transition duration-200 shadow-sm">
@@ -145,7 +145,7 @@
                                     </button>
                                 @endif
 
-                                <!-- Unenroll Button -->
+                                
                                 <form action="{{ route('course.unenroll', $course->id) }}" method="POST" 
                                       onsubmit="return confirm('Are you sure you want to unenroll from this course? Your progress will be saved.');">
                                     @csrf
@@ -161,7 +161,7 @@
                                     </button>
                                 </form>
                             @else
-                                <!-- Enroll Button -->
+                                
                                 <form action="{{ route('course.enroll', $course->id) }}" method="POST">
                                     @csrf
                                     <button type="submit" 
@@ -176,7 +176,7 @@
                                 </form>
                             @endif
 
-                            <!-- Contact Teacher via WhatsApp Button -->
+                            
                             <a href="https://wa.me/6282198711839" 
                                target="_blank"
                                rel="noopener noreferrer"
@@ -191,7 +191,7 @@
                         </div>
                     </div>
                 @empty
-                    <!-- Empty State -->
+                    
                     <div class="col-span-3 text-center py-16">
                         <svg class="mx-auto h-16 w-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
@@ -202,7 +202,7 @@
                 @endforelse
             </div>
 
-            <!-- Pagination -->
+            
             @if($courses->hasPages())
                 <div class="mt-8">
                     {{ $courses->links() }}
@@ -212,7 +212,7 @@
     </div>
 
     <style>
-        /* Line clamp utility for text truncation */
+        
         .line-clamp-3 {
             display: -webkit-box;
             -webkit-line-clamp: 3;
@@ -222,9 +222,10 @@
     </style>
 
     <!-- Footer -->
-    <footer class="bg-blue-600 text-white py-4 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-sm text-white-400">&copy; 2025 Studify. All rights reserved.</p>
-        </div>
+    <footer style="background: linear-gradient(135deg, #1e7ac4 0%, #2a9df4 100%);" 
+        class="text-white py-2 fixed inset-x-0 bottom-0 z-50">
+    <div class="max-w-7xl mx-auto px-8 text-center">
+        <p class="text-sm">&copy; 2025 Studify. All rights reserved.</p>
+    </div>
     </footer>
 </x-app-layout>

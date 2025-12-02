@@ -15,8 +15,8 @@
                     </div>
 
                     <a href="{{ route('lesson.show', $course->id) }}"
-                        class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">
-                        ← Back to Lessons
+                        class="px-4 py-2 bg-gray-200 text-gray-900 rounded-lg hover:bg-gray-300">
+                        Back to Lessons
                     </a>
                 </div>
             </div>
@@ -113,7 +113,7 @@
                                                             </span>
                                                         </p>
 
-                                                        {{-- DELETE REPLY (STANDALONE FORM) --}}
+                                                        {{-- DELETE REPLY --}}
                                                         @if(auth()->id() === $reply->user_id ||
                                                             auth()->user()->isAdmin() ||
                                                             (auth()->user()->isTeacher() && $course->teacher_id == auth()->id()))
@@ -156,7 +156,7 @@
                                                       class="w-full border rounded-lg p-3 focus:ring focus:ring-blue-300"
                                                       placeholder="Write a reply..." required></textarea>
 
-                                            {{-- BUTTONS ROW (Side by side with separate forms) --}}
+                                            {{-- BUTTONS ROW --}}
                                             <div class="flex items-center gap-3 mt-2">
                                                 
                                                 {{-- POST REPLY BUTTON --}}
@@ -167,7 +167,7 @@
 
                                         </form>
 
-                                        {{-- DELETE DISCUSSION (SEPARATE FORM - Side by side) --}}
+                                        {{-- DELETE DISCUSSION --}}
                                         @if(auth()->id() === $discussion->user_id ||
                                             auth()->user()->isAdmin() ||
                                             (auth()->user()->isTeacher() && $course->teacher_id == auth()->id()))
@@ -212,4 +212,11 @@
 
         </div>
     </div>
+
+    <footer style="background: linear-gradient(135deg, #1e7ac4 0%, #2a9df4 100%);" 
+        class="text-white py-2 fixed inset-x-0 bottom-0 z-50">
+    <div class="max-w-7xl mx-auto px-8 text-center">
+        <p class="text-sm">&copy; 2025 Studify. All rights reserved.</p>
+    </div>
+    </footer>
 </x-app-layout>

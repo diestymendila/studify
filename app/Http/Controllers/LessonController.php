@@ -12,20 +12,15 @@ class LessonController extends Controller
     {
         $user = auth()->user();
 
-        // Ambil course + konten urut
+        
         $course = Course::with(['contents' => function ($q) {
             $q->orderBy('order', 'asc');
         }, 'teacher', 'students'])->findOrFail($courseId);
 
-        // ============================
-        // TEACHER VIEW
-        // ============================
+
         if ($user->isTeacher() && $course->teacher_id === $user->id) {
-
             $students = $course->students;
-
             $studentsProgress = $students->map(function ($student) use ($course) {
-
                 $total = $course->contents->count();
                 $completed = $course->contents->filter(
                     fn($c) => $c->isCompletedBy($student->id)
@@ -44,21 +39,19 @@ class LessonController extends Controller
             return view('lessons.teacher-view', compact('course', 'studentsProgress'));
         }
 
-        // ============================
-        // STUDENT VIEW
-        // ============================
+
         if (!$user->isStudent()) {
             abort(403, 'Access denied.');
         }
 
-        // Pastikan user sudah ter-enroll
+        
         if (!$user->enrolledCourses()->where('course_id', $courseId)->exists()) {
             return redirect()
                 ->route('course.detail', $courseId)
                 ->with('error', 'You must enroll in this course first.');
         }
 
-        // Jika belum memilih content → redirect ke konten pertama
+        
         if (!$contentId) {
             $first = $course->contents->first();
             if (!$first) {
@@ -71,25 +64,29 @@ class LessonController extends Controller
             ]);
         }
 
-        // Ambil content secara aman
+        
         $content = Content::where('course_id', $courseId)
             ->where('id', $contentId)
             ->firstOrFail();
 
-        // ====== LOCK SYSTEM: CEK APAKAH LESSON SEBELUMNYA SUDAH COMPLETE ======
+
         $previousLessons = $course->contents->filter(
             fn($item) => $item->order < $content->order
         );
 
         $locked = false;
+        $lockedLesson = null;
+        
+        
         foreach ($previousLessons as $prev) {
             if (!$prev->isCompletedBy($user->id)) {
                 $locked = true;
                 $lockedLesson = $prev;
-                break;
+                break; 
             }
         }
 
+        
         if ($locked) {
             return redirect()->route('lesson.show', [
                 'course' => $courseId,
@@ -97,24 +94,29 @@ class LessonController extends Controller
             ])->with('error', 'You must complete the previous lesson first.');
         }
 
-        // Tandai completed status
+        
         $contents = $course->contents->map(function ($item) use ($user) {
             $item->is_completed = $item->isCompletedBy($user->id);
             return $item;
-        });
+        })->values(); 
 
         $isCompleted = $content->isCompletedBy($user->id);
 
-        // Next & Previous
-        $nextContent = $course->contents()
-            ->where('order', '>', $content->order)
-            ->orderBy('order')
-            ->first();
+        
+        $currentIndex = $contents->search(fn($item) => $item->id === $content->id);
 
-        $previousContent = $course->contents()
-            ->where('order', '<', $content->order)
-            ->orderBy('order', 'desc')
-            ->first();
+        
+        $previousContent = $contents->get($currentIndex - 1);
+        
+        
+        $nextContent = $contents->get($currentIndex + 1);
+        
+
+        
+        $nextLocked = false;
+        if ($nextContent && !$isCompleted) {
+            $nextLocked = true;
+        }
 
         return view('lessons.show', compact(
             'course',
@@ -122,13 +124,12 @@ class LessonController extends Controller
             'contents',
             'isCompleted',
             'nextContent',
-            'previousContent'
+            'previousContent',
+            'nextLocked'
         ));
     }
 
-    // ====================
-    // MARK AS COMPLETE
-    // ====================
+
     public function markAsComplete($courseId, $contentId)
     {
         $user = auth()->user();
@@ -148,7 +149,7 @@ class LessonController extends Controller
             ->where('id', $contentId)
             ->firstOrFail();
 
-        // Cek apakah lesson sebelumnya sudah complete
+        
         $previousLessons = $course->contents->filter(
             fn($item) => $item->order < $content->order
         );
@@ -162,13 +163,26 @@ class LessonController extends Controller
             }
         }
 
-        // Toggle complete
+        
         if ($content->isCompletedBy($user->id)) {
             $content->markAsIncompleteBy($user->id);
             $msg = 'Completion removed!';
         } else {
             $content->markAsCompletedBy($user->id);
             $msg = 'Content marked as complete!';
+        }
+
+        
+        $nextContent = $course->contents
+            ->where('order', '>', $content->order)
+            ->sortBy('order')
+            ->first();
+
+        if ($nextContent) {
+            return redirect()->route('lesson.show', [
+                'course' => $courseId,
+                'content' => $nextContent->id
+            ])->with('success', $msg);
         }
 
         return redirect()->back()->with('success', $msg);

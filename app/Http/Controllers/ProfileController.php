@@ -41,7 +41,7 @@ class ProfileController extends Controller
                 }])
                 ->get()
                 ->map(function($course) {
-                    // Hitung average progress dari semua student yang enrolled
+                    
                     if ($course->students->count() > 0) {
                         $totalProgress = 0;
                         

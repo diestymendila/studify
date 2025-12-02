@@ -32,10 +32,10 @@ class DashboardController extends Controller
             $enrolledCourses = $user->enrolledCourses()->with(['teacher', 'contents'])->get();
             
             $coursesWithProgress = $enrolledCourses->map(function ($course) use ($user) {
-                // GUNAKAN HELPER METHOD untuk konsistensi 100%
+                
                 $progressData = $user->getCourseProgress($course);
                 
-                // Attach progress data to course object
+                
                 $course->progress = $progressData['percentage'];
                 $course->completed_contents = $progressData['completed'];
                 $course->total_contents = $progressData['total'];

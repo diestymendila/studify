@@ -1,13 +1,13 @@
 <x-app-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <!-- Header Section -->
+            
             <div class="mb-8">
                 <h2 class="text-3xl font-bold text-gray-800">Manage Courses</h2>
                 <p class="text-gray-600 mt-2">View and manage all courses in the platform</p>
             </div>
 
-            <!-- Success/Error Messages -->
+            
             @if(session('success'))
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4 relative">
                     <span class="block sm:inline">{{ session('success') }}</span>
@@ -92,12 +92,11 @@
                                     
                                     @php
                                         $user = auth()->user();
-                                        // Admin bisa hapus semua course
-                                        // Teacher HANYA bisa hapus course yang DIA BUAT (bukan yang dibuat admin)
+                                        
                                         $canDelete = $user->isAdmin() || ($course->created_by === $user->id);
                                     @endphp
                                     
-                                    {{-- Tombol Delete HANYA muncul jika user punya hak hapus --}}
+                                    
                                     @if($canDelete)
                                         <form action="{{ route('courses.destroy', $course) }}" method="POST" class="inline">
                                             @csrf
@@ -125,6 +124,13 @@
             </div>
         </div>
     </div>
+
+    <footer style="background: linear-gradient(135deg, #1e7ac4 0%, #2a9df4 100%);" 
+        class="text-white py-2 fixed inset-x-0 bottom-0 z-50">
+    <div class="max-w-7xl mx-auto px-8 text-center">
+        <p class="text-sm">&copy; 2025 Studify. All rights reserved.</p>
+    </div>
+    </footer>
 </x-app-layout>
 
 <style>

@@ -116,7 +116,7 @@
                     </div>
                 </form>
 
-                <!-- Form Delete Terpisah -->
+                
                 @if($user->id !== auth()->id())
                 <form id="deleteUserForm" action="{{ route('admin.users.destroy', $user) }}" method="POST" style="display: none;">
                     @csrf
@@ -125,7 +125,7 @@
                 @endif
             </div>
 
-            <!-- Warning Card -->
+            
             @if($user->id === auth()->id())
             <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mt-6">
                 <h4 class="font-bold text-yellow-900 mb-2">⚠️ Warning</h4>
@@ -136,6 +136,13 @@
             @endif
         </div>
     </div>
+
+    <footer style="background: linear-gradient(135deg, #1e7ac4 0%, #2a9df4 100%);" 
+        class="text-white py-2 fixed inset-x-0 bottom-0 z-50">
+    <div class="max-w-7xl mx-auto px-8 text-center">
+        <p class="text-sm">&copy; 2025 Studify. All rights reserved.</p>
+    </div>
+    </footer>
 </x-app-layout>
 
 <style>

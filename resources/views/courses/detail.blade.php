@@ -86,7 +86,7 @@
 
             <!-- Course Card -->
             <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-                <!-- Course Header with Blue Background -->
+                
                 <div class="bg-primary px-5 py-4">
                     <div class="flex items-center gap-2 mb-2">
                         <span class="course-badge bg-white text-primary">
@@ -315,10 +315,11 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-primary text-white py-4 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-sm text-white-400">&copy; 2025 Studify. All rights reserved.</p>
-        </div>
+    <footer style="background: linear-gradient(135deg, #1e7ac4 0%, #2a9df4 100%);" 
+        class="text-white py-2 fixed inset-x-0 bottom-0 z-50">
+    <div class="max-w-7xl mx-auto px-8 text-center">
+        <p class="text-sm">&copy; 2025 Studify. All rights reserved.</p>
+    </div>
     </footer>
 </body>
 </html>

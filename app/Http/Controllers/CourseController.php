@@ -26,21 +26,21 @@ class CourseController extends Controller
         $user = auth()->user();
 
         if ($user->isAdmin()) {
-            // Admin melihat semua courses
+            
             $courses = Course::with(['teacher', 'category', 'creator'])
                 ->withCount('students')
                 ->paginate(10);
             
-            // Hitung total courses untuk admin
+            
             $totalCourses = Course::count();
         } else {
-            // Teacher hanya melihat courses miliknya
+            
             $courses = $user->teachingCourses()
                 ->with(['category', 'creator'])
                 ->withCount('students')
                 ->paginate(10);
             
-            // Hitung total courses untuk teacher ini
+            
             $totalCourses = $user->teachingCourses()->count();
         }
 

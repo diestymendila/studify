@@ -91,10 +91,10 @@ class DiscussionController extends Controller
         abort(403);
     }
 
-    // Hapus semua reply dulu
+    
     $discussion->replies()->delete();
 
-    // Hapus diskusi
+    
     $discussion->delete();
 
     return redirect()->route('discussions.index', $courseId)
@@ -104,12 +104,12 @@ class DiscussionController extends Controller
 
     public function destroyReply($courseId, Discussion $discussion, DiscussionReply $reply)
     {
-    // Pastikan reply milik discussion yang sama
+    
     if ($reply->discussion_id != $discussion->id) {
         abort(404);
     }
 
-    // Authorization: hanya pemilik reply / teacher / admin
+    
     if (
         auth()->id() !== $reply->user_id &&
         !auth()->user()->isTeacher() &&

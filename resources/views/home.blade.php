@@ -23,7 +23,6 @@
             background-color: #ffffff;
         }
 
-        /* Hero Section - Split Layout */
         .hero-bg {
             background-color: #1b72e8;
             background-image: url('/images/hero-bg.jpg');
@@ -542,9 +541,9 @@
         <div class="hero-container">
             <!-- Left Side - Image -->
             <div class="hero-image-side">
-                <!-- Ganti path ini dengan gambar Anda -->
-                @if(file_exists(public_path('images/hero-img7.jpg')))
-                    <img src="{{ asset('images/hero-img7.jpg') }}" alt="Students Learning">
+                
+                @if(file_exists(public_path('images/hero-img.jpg')))
+                    <img src="{{ asset('images/hero-img.jpg') }}" alt="Students Learning">
                 @else
                     <!-- Placeholder jika gambar belum ada -->
                     <div class="hero-image-placeholder">
@@ -700,7 +699,8 @@
         </div>
     </div>
 
-   <footer style="background: linear-gradient(135deg, #1e7ac4 0%, #2a9df4 100%);" class="text-white py-4 mt-auto">
+   <footer style="background: linear-gradient(135deg, #1e7ac4 0%, #2a9df4 100%);" 
+        class="text-white py-2 fixed inset-x-0 bottom-0 z-50">
     <div class="max-w-7xl mx-auto px-8 text-center">
         <p class="text-sm">&copy; 2025 Studify. All rights reserved.</p>
     </div>

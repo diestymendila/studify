@@ -55,20 +55,15 @@
                     </div>
                 </form>
             </div>
-
-            <!-- Tips Card -->
-            <div class="bg-green-50 border border-green-200 rounded-lg p-6 mt-6">
-                <h4 class="font-bold text-green-900 mb-3">✅ Tips for Good Discussions</h4>
-                <ul class="text-sm text-green-800 space-y-2">
-                    <li>• <strong>Be specific:</strong> Include details about what you're trying to accomplish</li>
-                    <li>• <strong>Show your work:</strong> If you're stuck, share what you've already tried</li>
-                    <li>• <strong>Use examples:</strong> Concrete examples help others understand your question</li>
-                    <li>• <strong>Stay focused:</strong> Keep one topic per discussion</li>
-                    <li>• <strong>Be patient:</strong> Give others time to read and respond thoughtfully</li>
-                </ul>
-            </div>
         </div>
     </div>
+
+    <footer style="background: linear-gradient(135deg, #1e7ac4 0%, #2a9df4 100%);" 
+        class="text-white py-2 fixed inset-x-0 bottom-0 z-50">
+    <div class="max-w-7xl mx-auto px-8 text-center">
+        <p class="text-sm">&copy; 2025 Studify. All rights reserved.</p>
+    </div>
+    </footer>
 </x-app-layout>
 
 <style>

@@ -64,12 +64,12 @@
 
                                 <!-- Continue -->
                                 @php
-                                    // Ambil lesson/content pertama berdasarkan order (jika relasi bernama 'contents')
+                                    // Ambil lesson/content pertama berdasarkan order
                                     $firstContent = null;
                                     if($course->relationLoaded('contents')) {
                                         $firstContent = $course->contents->sortBy('order')->first();
                                     } else {
-                                        // fallback: try using the relationship query (non eager)
+                                        
                                         try {
                                             $firstContent = $course->contents()->orderBy('order')->first();
                                         } catch (\Throwable $e) {
@@ -131,4 +131,11 @@
             background: linear-gradient(135deg, #2a9df4, #1e7ac4);
         }
     </style>
+
+    <footer style="background: linear-gradient(135deg, #1e7ac4 0%, #2a9df4 100%);" 
+        class="text-white py-2 fixed inset-x-0 bottom-0 z-50">
+    <div class="max-w-7xl mx-auto px-8 text-center">
+        <p class="text-sm">&copy; 2025 Studify. All rights reserved.</p>
+    </div>
+    </footer>
 </x-app-layout>

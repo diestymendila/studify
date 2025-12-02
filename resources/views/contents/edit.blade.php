@@ -71,7 +71,7 @@
                             Cancel
                         </a>
                         
-                        <!-- Delete Button - Sejajar dengan button lainnya -->
+                        
                         <div class="ml-auto">
                             <button type="button" onclick="document.getElementById('deleteForm').submit();" class="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-lg font-semibold transition">
                                 Delete Content
@@ -80,14 +80,14 @@
                     </div>
                 </form>
 
-                <!-- Delete Form - Hidden -->
+                
                 <form id="deleteForm" action="{{ route('contents.destroy', [$course->id, $content->id]) }}" method="POST" style="display: none;">
                     @csrf
                     @method('DELETE')
                 </form>
             </div>
 
-            <!-- Info Card -->
+            
             <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mt-6">
                 <h4 class="font-bold text-yellow-900 mb-2">⚠️ Important</h4>
                 <p class="text-sm text-yellow-800">
@@ -96,6 +96,13 @@
             </div>
         </div>
     </div>
+
+    <footer style="background: linear-gradient(135deg, #1e7ac4 0%, #2a9df4 100%);" 
+        class="text-white py-2 fixed inset-x-0 bottom-0 z-50">
+    <div class="max-w-7xl mx-auto px-8 text-center">
+        <p class="text-sm">&copy; 2025 Studify. All rights reserved.</p>
+    </div>
+    </footer>
 </x-app-layout>
 
 <style>

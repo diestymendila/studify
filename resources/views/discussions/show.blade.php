@@ -2,10 +2,10 @@
     <div class="py-6">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
 
-            {{-- Back Button --}}
+            
             <a href="{{ route('discussions.index', $course->id) }}"
-               class="inline-flex mb-4 items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm">
-                ← Back to Discussions
+               class="inline-flex mb-4 items-center px-4 py-2 bg-gray-200 hover:bg-gray-200 rounded-lg text-sm">
+                Back to Discussions
             </a>
 
             {{-- Discussion Header --}}
@@ -29,7 +29,7 @@
             <div class="mt-6 bg-white shadow rounded-lg p-6">
                 <h3 class="text-lg font-semibold mb-4">Replies ({{ $discussion->replies->count() }})</h3>
 
-                {{-- List all replies --}}
+                
                 @forelse ($discussion->replies as $reply)
                 <div class="border-b py-4">
                     <div class="flex gap-3 items-start">
@@ -73,7 +73,13 @@
                     </button>
                 </form>
             </div>
-
         </div>
     </div>
+
+    <footer style="background: linear-gradient(135deg, #1e7ac4 0%, #2a9df4 100%);" 
+        class="text-white py-2 fixed inset-x-0 bottom-0 z-50">
+    <div class="max-w-7xl mx-auto px-8 text-center">
+        <p class="text-sm">&copy; 2025 Studify. All rights reserved.</p>
+    </div>
+    </footer>
 </x-app-layout>

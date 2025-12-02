@@ -13,7 +13,7 @@ class ContentController extends Controller
     {
         $course = Course::with(['contents.creator'])->findOrFail($courseId);
         
-        // Pastikan user memiliki akses ke course ini
+        
         $user = auth()->user();
         if (!$user->isAdmin() && $course->teacher_id !== $user->id) {
             abort(403, 'Unauthorized action.');
