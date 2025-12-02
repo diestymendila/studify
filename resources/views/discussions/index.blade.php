@@ -13,6 +13,11 @@
                         <h3 class="text-xl font-semibold">Course Discussions</h3>
                         <p class="text-gray-600 text-sm mt-1">{{ $discussions->total() }} discussions</p>
                     </div>
+
+                    <a href="{{ route('lesson.show', $course->id) }}"
+                        class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">
+                        ← Back to Lessons
+                    </a>
                 </div>
             </div>
 
