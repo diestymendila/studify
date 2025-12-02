@@ -15,9 +15,9 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
-        /* Background putih abu-abu seperti default */
+        /* Background biru gradasi */
         .main-bg {
-            background-color: #f3f4f6; /* gray-100 */
+            background: linear-gradient(135deg, #1e7ac4 0%, #2a9df4 100%);
         }
 
         .btn-primary {
@@ -31,7 +31,7 @@
         }
 
         .logo-text {
-            color: #1b1b1b;
+            color: #ffffff;
         }
 
         .card-container {

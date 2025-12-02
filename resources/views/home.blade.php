@@ -64,7 +64,7 @@
             object-fit: contain;
         }
 
-        /* Jika tidak ada gambar, gunakan placeholder */
+        /* Placeholder untuk hero dengan emoji */
         .hero-image-placeholder {
             width: 100%;
             max-width: 450px;
@@ -267,63 +267,6 @@
             box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
         }
 
-        /* Search Form (untuk filter section) */
-        .search-container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .search-form {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .search-input {
-            flex: 1;
-            min-width: 300px;
-            padding: 14px 20px;
-            border: none;
-            border-radius: 6px;
-            font-size: 14px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-
-        .search-input:focus {
-            outline: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-        .search-select {
-            padding: 14px 20px;
-            border: none;
-            border-radius: 6px;
-            font-size: 14px;
-            background-color: #ffffff;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            min-width: 180px;
-        }
-
-        .btn-search {
-            background-color: #1b72e8;
-            color: white;
-            padding: 14px 32px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 14px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-
-        .btn-search:hover {
-            background-color: #1557b0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-            transform: translateY(-2px);
-        }
-
         .btn-reset {
             background-color: #ffffff;
             color: #1b72e8;
@@ -373,31 +316,16 @@
             height: 220px; 
             width: 100%;
             overflow: hidden;
-            background-color: #f0f0f0; 
-        }
-
-        .course-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; 
-            display: block;
-            transition: transform 0.3s ease;
-        }
-
-        .course-card:hover .course-image img {
-            transform: scale(1.05);
-        }
-        
-        .course-image .placeholder-text {
-            width: 100%;
-            height: 100%;
+            background: linear-gradient(135deg, #1e7ac4 0%, #2a9df4 100%);
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+        
+        .course-image .placeholder-text {
             color: white;
-            font-size: 48px;
+            font-size: 72px;
             font-weight: bold;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
         .course-content {
@@ -554,19 +482,15 @@
                 grid-template-columns: 1fr;
             }
             
-            .search-form,
             .hero-search-form {
                 flex-direction: column;
             }
             
-            .search-input,
             .hero-search-input,
             .hero-search-select,
-            .search-select,
-            .btn-search,
-            .btn-reset,
             .hero-btn-primary,
-            .hero-btn-secondary {
+            .hero-btn-secondary,
+            .btn-reset {
                 width: 100%;
                 min-width: 100%;
             }
@@ -666,8 +590,6 @@
                         </a>
                     @endif
                 </form>
-
-
             </div>
         </div>
     </div>
@@ -698,15 +620,7 @@
                 @foreach($popularCourses as $course)
                 <div class="course-card">
                     <div class="course-image">
-                        @if($course->image)
-                            <img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->name }}">
-                        @elseif(stripos($course->name, 'laravel') !== false)
-                            <img src="{{ asset('images/laravel.jpg') }}" alt="{{ $course->name }}">
-                        @elseif(stripos($course->name, 'python') !== false)
-                            <img src="{{ asset('images/python.jpg') }}" alt="{{ $course->name }}">
-                        @else
-                            <span class="placeholder-text">{{ strtoupper(substr($course->name, 0, 1)) }}</span>
-                        @endif
+                        <span class="placeholder-text">{{ strtoupper(substr($course->name, 0, 1)) }}</span>
                     </div>
                     <div class="course-content">
                         <span class="category-badge">
@@ -744,15 +658,7 @@
                 @foreach($courses as $course)
                 <div class="course-card">
                     <div class="course-image">
-                        @if($course->image)
-                            <img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->name }}">
-                        @elseif(stripos($course->name, 'laravel') !== false)
-                            <img src="{{ asset('images/laravel.jpg') }}" alt="{{ $course->name }}">
-                        @elseif(stripos($course->name, 'python') !== false)
-                            <img src="{{ asset('images/python.jpg') }}" alt="{{ $course->name }}">
-                        @else
-                            <span class="placeholder-text">{{ strtoupper(substr($course->name, 0, 1)) }}</span>
-                        @endif
+                        <span class="placeholder-text">{{ strtoupper(substr($course->name, 0, 1)) }}</span>
                     </div>
                     <div class="course-content">
                         <span class="category-badge">
@@ -785,7 +691,7 @@
                     @endif
                 </p>
                 @if(request('search') || request('category'))
-                    <a href="{{ route('home') }}" class="btn-search" style="display: inline-block; margin-top: 16px;">
+                    <a href="{{ route('home') }}" class="btn-detail" style="display: inline-block; margin-top: 16px;">
                         Lihat Semua Kursus
                     </a>
                 @endif
@@ -794,10 +700,10 @@
         </div>
     </div>
 
-    <footer>
-        <div class="max-w-7xl mx-auto px-8">
-            <p>&copy; 2025 Studify. All rights reserved.</p>
-        </div>
+   <footer style="background: linear-gradient(135deg, #1e7ac4 0%, #2a9df4 100%);" class="text-white py-4 mt-auto">
+    <div class="max-w-7xl mx-auto px-8 text-center">
+        <p class="text-sm">&copy; 2025 Studify. All rights reserved.</p>
+    </div>
     </footer>
 </body>
 </html>

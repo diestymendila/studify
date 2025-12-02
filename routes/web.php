@@ -19,10 +19,8 @@ require __DIR__.'/auth.php';
 
 Route::middleware('auth')->group(function () {
 
-    /* DASHBOARD */
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    /* PROFILE */
     Route::prefix('profile')->name('profile.')->group(function () {
         Route::get('/', [ProfileController::class, 'show'])->name('show');
         Route::get('/edit', [ProfileController::class, 'edit'])->name('edit');
@@ -34,38 +32,26 @@ Route::middleware('auth')->group(function () {
             ->middleware('role:teacher,admin');
     });
 
-    /* PUBLIC COURSE CATALOG */
     Route::get('/courses/catalog', [CourseController::class, 'catalog'])->name('courses.catalog');
 
-    /* ========== LESSON ROUTES - SHARED (Student & Teacher) ========== */
-    // Route ini bisa diakses oleh Student DAN Teacher
-    // Controller akan auto-detect role dan menampilkan view yang sesuai
     Route::get('/courses/{course}/lessons/{content?}', [LessonController::class, 'show'])
-    ->name('lesson.show');
+        ->name('lesson.show');
 
-
-    /* STUDENT ROUTES */
     Route::middleware(['role:student'])->group(function () {
-        // Enrollment
         Route::post('/courses/{course}/enroll', [EnrollmentController::class, 'enroll'])->name('course.enroll');
         Route::delete('/courses/{course}/unenroll', [EnrollmentController::class, 'unenroll'])->name('course.unenroll');
 
-        // Mark as complete - hanya untuk student
         Route::post('/courses/{courseId}/contents/{contentId}/complete', [LessonController::class, 'markAsComplete'])
             ->name('content.complete');
 
-        // Alternative Content Routes (jika masih digunakan)
         Route::get('/courses/{course}/learn/{content}', [ContentController::class, 'show'])->name('contents.show');
         Route::post('/courses/{course}/contents/{content}/mark-complete', [ContentController::class, 'markAsCompleted'])->name('contents.complete');
         Route::post('/courses/{course}/contents/{content}/mark-incomplete', [ContentController::class, 'markAsIncomplete'])->name('contents.incomplete');
     });
 
-    /* TEACHER + ADMIN ROUTES */
     Route::middleware(['role:teacher,admin'])->group(function () {
-        // Course Management
         Route::resource('courses', CourseController::class);
 
-        // Content Management
         Route::prefix('courses/{course}/contents')->name('contents.')->group(function () {
             Route::get('/', [ContentController::class, 'index'])->name('index');
             Route::get('/create', [ContentController::class, 'create'])->name('create');
@@ -76,7 +62,6 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-    /* DISCUSSION ROUTES */
     Route::middleware(['role:student,teacher'])
         ->prefix('courses/{course}/discussions')
         ->name('discussions.')
@@ -88,7 +73,6 @@ Route::middleware('auth')->group(function () {
             Route::delete('/{discussion}', [DiscussionController::class, 'destroy'])->name('destroy');
         });
 
-    /* ADMIN ROUTES */
     Route::middleware(['role:admin'])
         ->prefix('admin')->name('admin.')
         ->group(function () {

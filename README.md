@@ -115,15 +115,7 @@ php artisan serve
 npm install
 ```
 
-#### 8. Jalankan Vite:
-
-```
-npm run dev
-```
-
-```
-Generate App Key:
-```
+#### 8. Generate App Key:
 
 ```
 php artisan key:generate
